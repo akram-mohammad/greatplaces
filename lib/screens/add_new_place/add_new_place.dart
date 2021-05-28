@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:great_places/providers/places_provider.dart';
 import 'package:great_places/screens/add_new_place/new_image_input_widget.dart';
+import 'package:great_places/screens/add_new_place/new_location_input_widget.dart';
 import 'package:provider/provider.dart';
 
 class AddNewPlace extends StatefulWidget {
@@ -37,17 +38,40 @@ class _AddNewPlaceState extends State<AddNewPlace> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
-            child: Column(
-              children: [
-                TextFormField(
-                  onChanged: (val) {
-                    setState(() {
-                      textController = val;
-                    });
-                  },
-                ),
-                ImageInput(savePlace),
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 5.0, horizontal: 20.0),
+                    child: TextFormField(
+                      decoration: new InputDecoration(
+                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                        hintStyle: TextStyle(
+                            color: Colors.grey, fontSize: 18.0, height: 1.5),
+                        labelText: 'Title',
+                        hintText: 'Enter Place Name ',
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey[300]),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey[300]),
+                        ),
+                        border: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey[300]),
+                        ),
+                      ),
+                      onChanged: (val) {
+                        setState(() {
+                          textController = val;
+                        });
+                      },
+                    ),
+                  ),
+                  ImageInput(savePlace),
+                  LocationInput(),
+                ],
+              ),
             ),
           ),
           ElevatedButton(

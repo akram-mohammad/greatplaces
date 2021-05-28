@@ -29,7 +29,7 @@ class PlacesProvider with ChangeNotifier {
 
   Future<void> fetchData() async {
     final _dataList = await DBHelper.getData('places');
-    _items = _dataList.map((e) => Place().fromDatabase(e)).toList();
+    _items = _dataList.map((e) => Place.fromDatabase(e)).toList();
     notifyListeners();
   }
 }

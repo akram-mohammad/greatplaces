@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
-import 'package:great_places/local_storage/db_helper.dart';
 
 class Place {
   final String id;
@@ -17,9 +16,14 @@ class Place {
       @required this.location,
       @required this.image});
 
-  Place fromDatabase(Map<String, dynamic> json) {
+  factory Place.fromDatabase(Map<String, dynamic> json) {
     return Place(
-        id: json['id'], title: json['title'], image: File(json['image']));
+        id: json['id'],
+        title: json['title'],
+        image: File(
+          json['image'],
+        ),
+        location: null);
   }
 }
 
