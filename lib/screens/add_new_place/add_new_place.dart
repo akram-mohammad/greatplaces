@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:great_places/models/place.dart';
 import 'package:great_places/providers/places_provider.dart';
 import 'package:great_places/screens/add_new_place/new_image_input_widget.dart';
 import 'package:provider/provider.dart';
@@ -23,12 +22,8 @@ class _AddNewPlaceState extends State<AddNewPlace> {
   }
 
   void _addPlace() {
-    Place _newPlace = new Place(
-        id: DateTime.now(),
-        title: textController,
-        image: pickedImage,
-        location: null);
-    Provider.of<PlacesProvider>(context, listen: false).addPlace(_newPlace);
+    Provider.of<PlacesProvider>(context, listen: false)
+        .addPlace(textController, pickedImage);
     Navigator.pop(context);
   }
 

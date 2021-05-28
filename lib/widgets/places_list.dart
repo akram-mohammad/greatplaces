@@ -6,19 +6,25 @@ import 'package:provider/provider.dart';
 class PlacesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Consumer<PlacesProvider>(
-      child: Text('No Places to Show'),
-      builder: (ctx, placeItem, ch) => placeItem == null
-          ? ch
-          : ListView.builder(
-              itemCount: placeItem.items.length,
-              itemBuilder: (ctx, index) {
-                return PlaceListTile(
-                  title: placeItem.items[index].title,
-                  image: placeItem.items[index].image,
-                );
-              },
-            ),
+    return FutureBuilder(
+      future: Provider.of<PlacesProvider>(context, listen: false).fetchData(),
+      builder: (ctx, snapshot) =>
+          snapshot.connectionState == ConnectionState.waiting
+              ? Center(child: CircularProgressIndicator())
+              : Consumer<PlacesProvider>(
+                  child: Center(child: Text('No Places to Show')),
+                  builder: (ctx, placeItem, ch) => placeItem.items.length <= 0
+                      ? ch
+                      : ListView.builder(
+                          itemCount: placeItem.items.length,
+                          itemBuilder: (ctx, index) {
+                            return PlaceListTile(
+                              title: placeItem.items[index].title,
+                              image: placeItem.items[index].image,
+                            );
+                          },
+                        ),
+                ),
     );
   }
 }
