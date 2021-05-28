@@ -1,4 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart' as path;
 
 class ImageInput extends StatefulWidget {
   @override
@@ -6,6 +11,22 @@ class ImageInput extends StatefulWidget {
 }
 
 class _ImageInputState extends State<ImageInput> {
+  File _pickedImage;
+
+  Future<void> _takePicture() async {
+    final imageFile = await ImagePicker().getImage(
+      source: ImageSource.camera,
+      maxWidth: 600,
+    );
+    setState(() {
+      _pickedImage = File(imageFile.path);
+    });
+    final Directory appDocDir = await getApplicationDocumentsDirectory();
+    final String appDocPath = path.basename(imageFile.path);
+    final savedImage =
+        await _pickedImage.copy(path.join(appDocDir.path, appDocPath));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -22,14 +43,20 @@ class _ImageInputState extends State<ImageInput> {
                 decoration: BoxDecoration(
                     border: Border.all(color: Colors.black, width: 1)),
                 child: Center(
-                  child: Text(
-                    'No Image to Preview',
-                    textAlign: TextAlign.center,
-                  ),
+                  child: _pickedImage != null
+                      ? Image.file(
+                          _pickedImage,
+                          fit: BoxFit.cover,
+                          width: double.infinity,
+                        )
+                      : Text(
+                          'No Image to Preview',
+                          textAlign: TextAlign.center,
+                        ),
                 ),
               ),
               TextButton.icon(
-                onPressed: () {},
+                onPressed: _takePicture,
                 icon: Icon(Icons.camera),
                 label: Text('Add an Image'),
               )
