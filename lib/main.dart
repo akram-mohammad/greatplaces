@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:great_places/providers/places_provider.dart';
 import 'package:great_places/screens/great_places_screen.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -8,12 +10,15 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Great Places',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return ChangeNotifierProvider(
+      create: (context) => PlacesProvider(),
+      child: MaterialApp(
+        title: 'Great Places',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: MyHomePage(title: 'Great Places'),
       ),
-      home: MyHomePage(title: 'Great Places'),
     );
   }
 }
