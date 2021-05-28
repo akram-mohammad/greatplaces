@@ -1,2 +1,2 @@
-# greatplaces
-Flutter app consists of adding places images and locations.
+# Great Places
+Flutter app consists of adding/reviewing places images and locations using Google Maps.
