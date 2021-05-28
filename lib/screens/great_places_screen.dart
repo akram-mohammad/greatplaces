@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:great_places/screens/add_new_place.dart';
 import 'package:great_places/widgets/places_list.dart';
+import 'add_new_place/add_new_place.dart';
 
 class GreatPlacesScreen extends StatelessWidget {
   @override
