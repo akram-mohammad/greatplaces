@@ -7,4 +7,9 @@ class PlacesProvider with ChangeNotifier {
   List<Place> get items {
     return [..._items];
   }
+
+  void addPlace(Place place) {
+    _items.add(place);
+    notifyListeners();
+  }
 }

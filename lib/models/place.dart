@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 
 class Place {
-  final int id;
+  final DateTime id;
   final String title;
   final String desciption;
   final PlaceLocation location;
