@@ -22,6 +22,7 @@ class PlacesList extends StatelessWidget {
                               title: placeItem.items[index].title,
                               image: placeItem.items[index].image,
                               address: placeItem.items[index].location.address,
+                              id: placeItem.items[index].id,
                             );
                           },
                         ),
