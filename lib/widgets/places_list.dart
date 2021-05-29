@@ -21,6 +21,7 @@ class PlacesList extends StatelessWidget {
                             return PlaceListTile(
                               title: placeItem.items[index].title,
                               image: placeItem.items[index].image,
+                              address: placeItem.items[index].location.address,
                             );
                           },
                         ),

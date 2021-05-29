@@ -17,13 +17,17 @@ class Place {
       @required this.image});
 
   factory Place.fromDatabase(Map<String, dynamic> json) {
+    final place = PlaceLocation(
+        longitude: json['loc_long'],
+        latitude: json['loc_lat'],
+        address: json['address']);
     return Place(
         id: json['id'],
         title: json['title'],
         image: File(
           json['image'],
         ),
-        location: null);
+        location: place);
   }
 }
 

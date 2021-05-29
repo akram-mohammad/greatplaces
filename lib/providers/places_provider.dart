@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:great_places/local_storage/db_helper.dart';
+import 'package:great_places/location/location_helper.dart';
 import 'package:great_places/models/place.dart';
 
 class PlacesProvider with ChangeNotifier {
@@ -11,18 +12,25 @@ class PlacesProvider with ChangeNotifier {
     return [..._items];
   }
 
-  void addPlace(String title, File image) {
+  Future<void> addPlace(String title, File image, PlaceLocation place) async {
+    final address =
+        await LocationHelper.getPlaceAddress(place.latitude, place.longitude);
+    final updatedLocation = PlaceLocation(
+        longitude: place.longitude, latitude: place.latitude, address: address);
     Place _newPlace = new Place(
         id: DateTime.now().toString(),
         title: title,
         image: image,
-        location: null);
+        location: updatedLocation);
     _items.add(_newPlace);
     notifyListeners();
     Map<String, dynamic> data = {
       "id": _newPlace.id,
       "title": _newPlace.title,
       "image": _newPlace.image.path,
+      "loc_lat": _newPlace.location.latitude,
+      "loc_long": _newPlace.location.longitude,
+      "address": _newPlace.location.address
     };
     DBHelper.insert('places', data);
   }

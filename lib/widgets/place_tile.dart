@@ -6,7 +6,8 @@ import 'package:great_places/screens/place_details_screen.dart';
 class PlaceListTile extends StatelessWidget {
   final File image;
   final String title;
-  PlaceListTile({this.image, this.title});
+  final String address;
+  PlaceListTile({this.image, this.title, this.address});
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -19,7 +20,7 @@ class PlaceListTile extends StatelessWidget {
         radius: 22.0,
       ),
       title: Text(title),
-      subtitle: Text('This is the Address'),
+      subtitle: Text(address.toString()),
     );
   }
 }

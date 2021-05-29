@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:great_places/models/place.dart';
 import 'package:great_places/providers/places_provider.dart';
 import 'package:great_places/screens/add_new_place/new_image_input_widget.dart';
 import 'package:great_places/screens/add_new_place/new_location_input_widget.dart';
@@ -14,6 +16,7 @@ class AddNewPlace extends StatefulWidget {
 
 class _AddNewPlaceState extends State<AddNewPlace> {
   File pickedImage;
+  PlaceLocation pickedLocation;
   String textController = '';
 
   void savePlace(val) {
@@ -22,9 +25,13 @@ class _AddNewPlaceState extends State<AddNewPlace> {
     });
   }
 
+  void saveLocation(lat, long) {
+    pickedLocation = PlaceLocation(longitude: long, latitude: lat);
+  }
+
   void _addPlace() {
     Provider.of<PlacesProvider>(context, listen: false)
-        .addPlace(textController, pickedImage);
+        .addPlace(textController, pickedImage, pickedLocation);
     Navigator.pop(context);
   }
 
@@ -69,7 +76,7 @@ class _AddNewPlaceState extends State<AddNewPlace> {
                     ),
                   ),
                   ImageInput(savePlace),
-                  LocationInput(),
+                  LocationInput(saveLocation),
                 ],
               ),
             ),
